@@ -15,7 +15,11 @@
     <!-- ENVELOPE SECTION -->
     <section id="envelope-section" class="section envelope-view">
       <div class="envelope-container">
-        <video id="folio-video" playsinline muted>
+        <!-- Static Cover Images -->
+        <img src="Cards & abckgrounds/folio(background).png" id="folio-static-bg" class="static-folio" alt="Folio Background">
+        <img src="Cards & abckgrounds/folio Closed (forground).png" id="folio-static-closed" class="static-folio" alt="Closed Folio">
+        
+        <video id="folio-video" playsinline muted style="display:none;">
           <source src="Cards & abckgrounds/Folio opening annimation.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -43,7 +47,7 @@
       </section>
 
       <!-- DATE & COUNTDOWN -->
-      <section class="card-section countdown-section">
+      <section class="card-section countdown-section no-parallax">
         <img src="Cards & abckgrounds/Date card(background).png" class="bg-layer" alt="Date Background">
         <img src="Cards & abckgrounds/Date card(text)(forground).png" class="fg-layer" alt="Date Foreground">
 
@@ -60,7 +64,7 @@
       </section>
 
       <!-- MAP SECTION -->
-      <section class="card-section map-section">
+      <section class="card-section map-section no-parallax">
         <img src="Cards & abckgrounds/invitation letter (bird)(background).png" class="bg-layer" alt="Map Background">
         <img src="Cards & abckgrounds/map card.png" class="fg-layer" alt="Map Foreground">
 
@@ -84,7 +88,7 @@
       </section>
 
       <!-- RSVP FORM -->
-      <section class="card-section rsvp-section">
+      <section class="card-section rsvp-section no-parallax">
         <img src="Cards & abckgrounds/Info guest card(Background).png" class="bg-layer" alt="RSVP Background">
         <img src="Cards & abckgrounds/Info guest card(forground).png" class="fg-layer" alt="RSVP Foreground">
 
@@ -114,7 +118,7 @@
       </section>
 
       <!-- SHARE MOMENTS -->
-      <section class="card-section share-section">
+      <section class="card-section share-section no-parallax">
         <img src="Cards & abckgrounds/photo share card(Background)(text).png" class="bg-layer" alt="Share Background">
         <img src="Cards & abckgrounds/photo share card(forground).png" class="fg-layer" alt="Share Foreground">
 

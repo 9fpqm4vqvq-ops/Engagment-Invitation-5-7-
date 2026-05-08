@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
 envelopeSection.addEventListener('click', () => {
     if (tapHint) tapHint.style.display = 'none';
 
+    // Hide static images and show video
+    const staticBg = document.getElementById('folio-static-bg');
+    const staticClosed = document.getElementById('folio-static-closed');
+    
+    if(staticBg) staticBg.style.display = 'none';
+    if(staticClosed) staticClosed.style.display = 'none';
+    folioVideo.style.display = 'block';
+
     folioVideo.play().catch(error => {
         console.error("Video play failed:", error);
         showMainContent();
@@ -64,19 +72,47 @@ function initNatureAndReveal() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
-                
-                // Randomly spawn a bird when a section is revealed
                 if (Math.random() > 0.6) spawnBird();
             }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.card-section').forEach(section => {
         observer.observe(section);
     });
 
-    // 2. Global Sparkling all over the pages
+    // 2. Global Sparkling
     initGlobalSparkles();
+
+    // 3. Optimized Parallax Effect
+    let isTicking = false;
+    window.addEventListener('scroll', () => {
+        if (!isTicking) {
+            window.requestAnimationFrame(() => {
+                updateParallax();
+                isTicking = false;
+            });
+            isTicking = true;
+        }
+    });
+
+    function updateParallax() {
+        const viewportHeight = window.innerHeight;
+        document.querySelectorAll('.card-section.revealed').forEach(section => {
+            if (section.classList.contains('no-parallax')) {
+                return; // Skip sections marked no-parallax
+            }
+            const fg = section.querySelector('.fg-layer');
+            if (fg) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < viewportHeight && rect.bottom > 0) {
+                    const speed = 0.12;
+                    const offset = rect.top * speed;
+                    fg.style.transform = `translate3d(0, ${offset}px, 0)`;
+                }
+            }
+        });
+    }
 
     function initGlobalSparkles() {
         const pageHeight = document.documentElement.scrollHeight;

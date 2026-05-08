@@ -71,11 +71,30 @@ body {
     align-items: center;
 }
 
+.static-folio {
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    object-fit: contain;
+    position: absolute;
+    z-index: 1;
+}
+
+#folio-static-bg {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+    z-index: 0;
+}
+
 .envelope-container video {
     width: 100%;
     height: auto;
     max-height: 100vh;
     object-fit: contain;
+    position: absolute;
+    z-index: 2;
 }
 
 .tap-hint {
@@ -148,11 +167,11 @@ body {
     50% { transform: translateY(-20px) scale(1.5); opacity: 1; }
 }
 
-/* REFINED SECTION REVEAL */
+/* REFINED SECTION REVEAL - Optimized for performance */
 .card-section {
     opacity: 0;
-    transform: translateY(40px);
-    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
     will-change: transform, opacity;
 }
 
@@ -163,7 +182,7 @@ body {
 
 /* NATURE OVERLAY (BIRDS & SPARKLES) */
 #nature-overlay {
-    position: absolute; /* Changed from fixed to absolute to scroll with content */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -175,8 +194,8 @@ body {
 /* HUMMINGBIRD ANIMATION */
 .hummy-bird-container {
     position: absolute;
-    top: 15%;
-    right: 5%;
+    top: 60%;
+    right: 65%;
     width: 25%;
     z-index: 3;
     pointer-events: none;
@@ -218,17 +237,25 @@ body {
     100% { transform: translate(110vw, 0) rotate(5deg); }
 }
 
-/* GLOBAL SPARKLE ENHANCEMENT */
+/* GLOBAL SPARKLE ENHANCEMENT - Optimized for scrolling */
 .global-sparkle {
     position: absolute;
     background: #fff;
     border-radius: 50%;
     filter: blur(0.5px);
-    box-shadow: 0 0 10px #fff, 0 0 15px #ffd700; /* Stronger Glow */
+    box-shadow: 0 0 8px #ffd700;
     pointer-events: none;
     opacity: 0;
     animation: twinkle var(--duration) infinite ease-in-out;
     z-index: 99;
+    will-change: opacity, transform;
+}
+
+/* Parallax Layer Optimization */
+.fg-layer {
+    will-change: transform;
+    transition: none !important; /* Forces instant transform updates for smoothness */
+}
 }
 
 @keyframes twinkle {
@@ -322,7 +349,7 @@ canvas#scratch-pad {
 
 .map-link-container {
     position: absolute;
-    top: 67.9%;
+    top: 67%;
     left: 20%;
     width: 60%;
     display: flex;
