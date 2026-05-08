@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kozhan & Ekhlas Engagement</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- ENVELOPE SECTION -->
+    <section id="envelope-section" class="section envelope-view">
+      <div class="envelope-container">
+        <video id="folio-video" playsinline muted>
+          <source src="Cards & abckgrounds/Folio opening annimation.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="light-ray"></div>
+        <div id="sparkles-container"></div>
+      </div>
+      <div class="tap-hint">Tap to Open</div>
+    </section>
+
+    <!-- MAIN CONTENT (hidden initially until opened) -->
+    <main id="main-content" style="display:none; opacity: 0; transition: opacity 1s;">
+      
+      <!-- Nature Overlay for Birds and Flowers -->
+      <div id="nature-overlay"></div>
+
+      <!-- INVITATION LETTER -->
+      <section class="card-section">
+        <img src="Cards & abckgrounds/invitation letter (bird)(background).png" class="bg-layer" alt="Background">
+        <img src="Cards & abckgrounds/invitation letter (bird)(forground).png" class="fg-layer" alt="Foreground">
+        
+        <!-- Hummingbird Decoration -->
+        <div class="hummy-bird-container">
+          <img src="Cards & abckgrounds/hummy bird.svg" class="hummy-bird" alt="Hummingbird">
+        </div>
+      </section>
+
+      <!-- DATE & COUNTDOWN -->
+      <section class="card-section countdown-section">
+        <img src="Cards & abckgrounds/Date card(background).png" class="bg-layer" alt="Date Background">
+        <img src="Cards & abckgrounds/Date card(text)(forground).png" class="fg-layer" alt="Date Foreground">
+
+        <!-- Countdown Container positioned in the space -->
+        <div class="countdown-container" id="countdown-container">
+          <div class="countdown-numbers">
+            <div id="days">00</div>
+            <div id="hours">00</div>
+            <div id="mins">00</div>
+          </div>
+          <!-- Scratch Canvas overlays the countdown and date text -->
+          <canvas id="scratch-pad"></canvas>
+        </div>
+      </section>
+
+      <!-- MAP SECTION -->
+      <section class="card-section map-section">
+        <img src="Cards & abckgrounds/invitation letter (bird)(background).png" class="bg-layer" alt="Map Background">
+        <img src="Cards & abckgrounds/map card.png" class="fg-layer" alt="Map Foreground">
+
+        <!-- Map Links -->
+        <a href="https://maps.app.goo.gl/DVJuapAfZarf4PVu5" target="_blank" rel="noopener noreferrer" class="map-link-container">
+          <img src="Cards & abckgrounds/Map photo.png" class="map-photo" alt="Map Photo">
+          <img src="Cards & abckgrounds/open in maps.png" class="open-maps-btn" alt="Open in Maps">
+        </a>
+      </section>
+
+      <!-- TIMELINE -->
+      <section class="card-section">
+        <img src="Cards & abckgrounds/Time Line(text)(background).png" class="bg-layer" alt="Timeline Background">
+        <img src="Cards & abckgrounds/Time Line(text)(forground).png" class="fg-layer" alt="Timeline Foreground">
+      </section>
+
+      <!-- WELCOME LETTER -->
+      <section class="card-section">
+        <img src="Cards & abckgrounds/Welcome card(text)(background).png" class="bg-layer" alt="Welcome Background">
+        <img src="Cards & abckgrounds/Welcome card(text)(Forground).png" class="fg-layer" alt="Welcome Foreground">
+      </section>
+
+      <!-- RSVP FORM -->
+      <section class="card-section rsvp-section">
+        <img src="Cards & abckgrounds/Info guest card(Background).png" class="bg-layer" alt="RSVP Background">
+        <img src="Cards & abckgrounds/Info guest card(forground).png" class="fg-layer" alt="RSVP Foreground">
+
+        <div class="form-container">
+          <form id="rsvp-form" action="https://formsubmit.co/ajax/kozhankaso@gmail.com" method="POST">
+            <!-- Hidden inputs for formsubmit -->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_subject" value="New Engagement RSVP!">
+
+            <input type="text" name="name" placeholder="Guest Name" required class="glossy-input">
+            <input type="number" name="guests" placeholder="Number of Guests" required class="glossy-input">
+
+            <div class="radio-group">
+              <label class="glossy-radio"><input type="radio" name="attendance" value="Attending" required> Will
+                Attend</label>
+              <label class="glossy-radio"><input type="radio" name="attendance" value="Not Attending"> Cannot
+                Attend</label>
+            </div>
+
+            <input type="email" name="email" placeholder="Email Address" required class="glossy-input">
+
+            <button type="submit" class="glossy-btn" id="submit-btn">Submit</button>
+            <div id="rsvp-status"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- SHARE MOMENTS -->
+      <section class="card-section share-section">
+        <img src="Cards & abckgrounds/photo share card(Background)(text).png" class="bg-layer" alt="Share Background">
+        <img src="Cards & abckgrounds/photo share card(forground).png" class="fg-layer" alt="Share Foreground">
+
+        <div class="upload-container">
+          <div class="camera-icon" aria-hidden="true">📷</div>
+          <input type="file" id="photo-upload" accept="image/*" style="display:none;">
+          <label for="photo-upload" class="glossy-btn upload-btn" id="upload-label">Share your moments</label>
+          <div id="upload-status"></div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <section class="card-section footer-section">
+        <img src="Cards & abckgrounds/Footer(Text).png" class="bg-layer footer-img" alt="Footer">
+        <div class="footer-credit">made with love OBSYD.agency</div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
