@@ -6,149 +6,149 @@ document.addEventListener('DOMContentLoaded', () => {
     const folioVideo = document.getElementById('folio-video');
     const lightRay = document.querySelector('.light-ray');
     const tapHint = document.querySelector('.tap-hint');
-envelopeSection.addEventListener('click', () => {
-    if (tapHint) tapHint.style.display = 'none';
+    envelopeSection.addEventListener('click', () => {
+        if (tapHint) tapHint.style.display = 'none';
 
-    // Hide static images and show video
-    const staticBg = document.getElementById('folio-static-bg');
-    const staticClosed = document.getElementById('folio-static-closed');
-    
-    if(staticBg) staticBg.style.display = 'none';
-    if(staticClosed) staticClosed.style.display = 'none';
-    folioVideo.style.display = 'block';
+        // Hide static images and show video
+        const staticBg = document.getElementById('folio-static-bg');
+        const staticClosed = document.getElementById('folio-static-closed');
 
-    folioVideo.play().catch(error => {
-        console.error("Video play failed:", error);
-        showMainContent();
-    });
+        if (staticBg) staticBg.style.display = 'none';
+        if (staticClosed) staticClosed.style.display = 'none';
+        folioVideo.style.display = 'block';
 
-    folioVideo.onended = () => {
-        // Trigger Cinematic Transition
-        createSparkles();
-        lightRay.style.opacity = '1';
-
-        setTimeout(() => {
+        folioVideo.play().catch(error => {
+            console.error("Video play failed:", error);
             showMainContent();
-            // Slowly fade out the light ray after transition
+        });
+
+        folioVideo.onended = () => {
+            // Trigger Cinematic Transition
+            createSparkles();
+            lightRay.style.opacity = '1';
+
             setTimeout(() => {
-                lightRay.style.opacity = '0';
-            }, 500);
-        }, 800);
-    };
-});
-
-function createSparkles() {
-    const container = document.getElementById('sparkles-container');
-    for (let i = 0; i < 50; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'sparkle';
-        const size = Math.random() * 5 + 2;
-        sparkle.style.width = `${size}px`;
-        sparkle.style.height = `${size}px`;
-        sparkle.style.left = `${Math.random() * 100}%`;
-        sparkle.style.top = `${Math.random() * 100}%`;
-        sparkle.style.animationDelay = `${Math.random() * 2}s`;
-        container.appendChild(sparkle);
-    }
-}
-
-function showMainContent() {
-    envelopeSection.style.display = 'none';
-    mainContent.style.display = 'block';
-    window.scrollTo(0, 0);
-    
-    setTimeout(() => {
-        mainContent.style.opacity = '1';
-        initNatureAndReveal();
-        setTimeout(initScratchPad, 100);
-    }, 50);
-}
-
-function initNatureAndReveal() {
-    const natureOverlay = document.getElementById('nature-overlay');
-    
-    // 1. Intersection Observer for Reveals
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-                if (Math.random() > 0.6) spawnBird();
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.card-section').forEach(section => {
-        observer.observe(section);
+                showMainContent();
+                // Slowly fade out the light ray after transition
+                setTimeout(() => {
+                    lightRay.style.opacity = '0';
+                }, 500);
+            }, 800);
+        };
     });
 
-    // 2. Global Sparkling
-    initGlobalSparkles();
-
-    // 3. Optimized Parallax Effect
-    let isTicking = false;
-    window.addEventListener('scroll', () => {
-        if (!isTicking) {
-            window.requestAnimationFrame(() => {
-                updateParallax();
-                isTicking = false;
-            });
-            isTicking = true;
-        }
-    });
-
-    function updateParallax() {
-        const viewportHeight = window.innerHeight;
-        document.querySelectorAll('.card-section.revealed').forEach(section => {
-            if (section.classList.contains('no-parallax')) {
-                return; // Skip sections marked no-parallax
-            }
-            const fg = section.querySelector('.fg-layer');
-            if (fg) {
-                const rect = section.getBoundingClientRect();
-                if (rect.top < viewportHeight && rect.bottom > 0) {
-                    const speed = 0.12;
-                    const offset = rect.top * speed;
-                    fg.style.transform = `translate3d(0, ${offset}px, 0)`;
-                }
-            }
-        });
-    }
-
-    function initGlobalSparkles() {
-        const pageHeight = document.documentElement.scrollHeight;
-        const sparkleCount = Math.floor(pageHeight / 8); // Very high density
-
-        for (let i = 0; i < sparkleCount; i++) {
+    function createSparkles() {
+        const container = document.getElementById('sparkles-container');
+        for (let i = 0; i < 50; i++) {
             const sparkle = document.createElement('div');
-            sparkle.className = 'global-sparkle';
-            // Vary sizes more for depth
-            const size = Math.random() * 5 + 1.5; 
+            sparkle.className = 'sparkle';
+            const size = Math.random() * 5 + 2;
             sparkle.style.width = `${size}px`;
             sparkle.style.height = `${size}px`;
-            
-            sparkle.style.top = `${Math.random() * pageHeight}px`;
             sparkle.style.left = `${Math.random() * 100}%`;
-            
-            // Random duration and delay
-            const duration = Math.random() * 2 + 1; 
-            sparkle.style.setProperty('--duration', `${duration}s`);
-            sparkle.style.animationDelay = `${Math.random() * 10}s`;
-            
-            natureOverlay.appendChild(sparkle);
+            sparkle.style.top = `${Math.random() * 100}%`;
+            sparkle.style.animationDelay = `${Math.random() * 2}s`;
+            container.appendChild(sparkle);
         }
     }
 
-    function spawnBird() {
-        const bird = document.createElement('div');
-        bird.className = 'bird-svg bird-flying';
-        bird.innerHTML = `<svg viewBox="0 0 512 512"><path d="M512 113.1c0 14.3-11.6 25.9-25.9 25.9-4.8 0-9.2-1.3-13-3.6-11.3 26.6-37.5 45.3-68.2 45.3-40.8 0-73.9-33.1-73.9-73.9 0-3.3.2-6.6.6-9.8C296.8 123 266 160.8 256 204.8c-10-44-40.8-81.8-75.6-107.8.4 3.2.6 6.5.6 9.8 0 40.8-33.1 73.9-73.9 73.9-30.7 0-56.9-18.7-68.2-45.3-3.8 2.3-8.2 3.6-13 3.6-14.3 0-25.9-11.6-25.9-25.9s11.6-25.9 25.9-25.9c4.8 0 9.2 1.3 13 3.6 11.3-26.6 37.5-45.3 68.2-45.3 40.8 0 73.9 33.1 73.9 73.9 0 3.3-.2 6.6-.6 9.8 34.8 26 65.6 63.8 75.6 107.8 10-44 40.8-81.8 75.6-107.8-.4-3.2-.6-6.5-.6-9.8 0-40.8 33.1-73.9 73.9-73.9 30.7 0 56.9 18.7 68.2 45.3 3.8-2.3 8.2-3.6 13-3.6 14.3 0 25.9 11.6 25.9 25.9z"/></svg>`;
-        
-        bird.style.top = `${window.scrollY + (Math.random() * window.innerHeight)}px`;
-        
-        natureOverlay.appendChild(bird);
-        setTimeout(() => bird.remove(), 8000); // Cleanup after animation
+    function showMainContent() {
+        envelopeSection.style.display = 'none';
+        mainContent.style.display = 'block';
+        window.scrollTo(0, 0);
+
+        setTimeout(() => {
+            mainContent.style.opacity = '1';
+            initNatureAndReveal();
+            setTimeout(initScratchPad, 100);
+        }, 50);
     }
-}
+
+    function initNatureAndReveal() {
+        const natureOverlay = document.getElementById('nature-overlay');
+
+        // 1. Intersection Observer for Reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    if (Math.random() > 0.6) spawnBird();
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // 2. Global Sparkling
+        initGlobalSparkles();
+
+        // 3. Optimized Parallax Effect
+        let isTicking = false;
+        window.addEventListener('scroll', () => {
+            if (!isTicking) {
+                window.requestAnimationFrame(() => {
+                    updateParallax();
+                    isTicking = false;
+                });
+                isTicking = true;
+            }
+        });
+
+        function updateParallax() {
+            const viewportHeight = window.innerHeight;
+            document.querySelectorAll('.card-section.revealed').forEach(section => {
+                if (section.classList.contains('no-parallax')) {
+                    return; // Skip sections marked no-parallax
+                }
+                const fg = section.querySelector('.fg-layer');
+                if (fg) {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top < viewportHeight && rect.bottom > 0) {
+                        const speed = 0.12;
+                        const offset = rect.top * speed;
+                        fg.style.transform = `translate3d(0, ${offset}px, 0)`;
+                    }
+                }
+            });
+        }
+
+        function initGlobalSparkles() {
+            const pageHeight = document.documentElement.scrollHeight;
+            const sparkleCount = Math.floor(pageHeight / 8); // Very high density
+
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'global-sparkle';
+                // Vary sizes more for depth
+                const size = Math.random() * 5 + 1.5;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+
+                sparkle.style.top = `${Math.random() * pageHeight}px`;
+                sparkle.style.left = `${Math.random() * 100}%`;
+
+                // Random duration and delay
+                const duration = Math.random() * 2 + 1;
+                sparkle.style.setProperty('--duration', `${duration}s`);
+                sparkle.style.animationDelay = `${Math.random() * 10}s`;
+
+                natureOverlay.appendChild(sparkle);
+            }
+        }
+
+        function spawnBird() {
+            const bird = document.createElement('div');
+            bird.className = 'bird-svg bird-flying';
+            bird.innerHTML = `<svg viewBox="0 0 512 512"><path d="M512 113.1c0 14.3-11.6 25.9-25.9 25.9-4.8 0-9.2-1.3-13-3.6-11.3 26.6-37.5 45.3-68.2 45.3-40.8 0-73.9-33.1-73.9-73.9 0-3.3.2-6.6.6-9.8C296.8 123 266 160.8 256 204.8c-10-44-40.8-81.8-75.6-107.8.4 3.2.6 6.5.6 9.8 0 40.8-33.1 73.9-73.9 73.9-30.7 0-56.9-18.7-68.2-45.3-3.8 2.3-8.2 3.6-13 3.6-14.3 0-25.9-11.6-25.9-25.9s11.6-25.9 25.9-25.9c4.8 0 9.2 1.3 13 3.6 11.3-26.6 37.5-45.3 68.2-45.3 40.8 0 73.9 33.1 73.9 73.9 0 3.3-.2 6.6-.6 9.8 34.8 26 65.6 63.8 75.6 107.8 10-44 40.8-81.8 75.6-107.8-.4-3.2-.6-6.5-.6-9.8 0-40.8 33.1-73.9 73.9-73.9 30.7 0 56.9 18.7 68.2 45.3 3.8-2.3 8.2-3.6 13-3.6 14.3 0 25.9 11.6 25.9 25.9z"/></svg>`;
+
+            bird.style.top = `${window.scrollY + (Math.random() * window.innerHeight)}px`;
+
+            natureOverlay.appendChild(bird);
+            setTimeout(() => bird.remove(), 8000); // Cleanup after animation
+        }
+    }
 
     // 2. Countdown Timer
     // Date: June 6th, 2026, 6:00pm
@@ -264,23 +264,23 @@ function initNatureAndReveal() {
                 },
                 body: JSON.stringify(data)
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success === "true" || data.success === true) {
-                    rsvpStatus.innerHTML = "<p style='color: #4CAF50; font-weight: bold;'>RSVP Sent Successfully!</p>";
-                    rsvpForm.reset();
-                } else {
-                    rsvpStatus.innerHTML = "<p style='color: #f44336;'>Submission failed. Please try again.</p>";
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                rsvpStatus.innerHTML = "<p style='color: #f44336;'>Error sending RSVP. Please try again.</p>";
-            })
-            .finally(() => {
-                submitBtn.innerText = originalText;
-                submitBtn.disabled = false;
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === "true" || data.success === true) {
+                        rsvpStatus.innerHTML = "<p style='color: #4CAF50; font-weight: bold;'>RSVP Sent Successfully!</p>";
+                        rsvpForm.reset();
+                    } else {
+                        rsvpStatus.innerHTML = "<p style='color: #f44336;'>Submission failed. Please try again.</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    rsvpStatus.innerHTML = "<p style='color: #f44336;'>Error sending RSVP. Please try again.</p>";
+                })
+                .finally(() => {
+                    submitBtn.innerText = originalText;
+                    submitBtn.disabled = false;
+                });
         });
     }
 
