@@ -265,17 +265,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(data)
             })
                 .then(response => response.json())
-                .then(data => {
-                    if (data.success === "true" || data.success === true) {
-                        rsvpStatus.innerHTML = "<p style='color: #4CAF50; font-weight: bold;'>RSVP Sent Successfully!</p>";
+                .then(result => {
+                    if (result.success === true) {
+                        rsvpStatus.innerHTML = "<p style='color: #4CAF50; font-weight: bold;'>✅ RSVP Sent Successfully! We can't wait to celebrate with you.</p>";
                         rsvpForm.reset();
                     } else {
-                        rsvpStatus.innerHTML = "<p style='color: #f44336;'>Submission failed. Please try again.</p>";
+                        rsvpStatus.innerHTML = "<p style='color: #f44336;'>⚠️ " + (result.message || "Submission failed. Please try again.") + "</p>";
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    rsvpStatus.innerHTML = "<p style='color: #f44336;'>Error sending RSVP. Please try again.</p>";
+                    console.error('RSVP Error:', error);
+                    rsvpStatus.innerHTML = "<p style='color: #f44336;'>⚠️ Could not reach the server. Please check your connection and try again.</p>";
                 })
                 .finally(() => {
                     submitBtn.innerText = originalText;

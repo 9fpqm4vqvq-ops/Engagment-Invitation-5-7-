@@ -96,12 +96,12 @@
         <img src="Cards & abckgrounds/Info guest card(forground).png" class="fg-layer" alt="RSVP Foreground">
 
         <div class="form-container">
-          <form id="rsvp-form" action="https://formsubmit.co/ajax/kozhankaso@gmail.com" method="POST">
-            <!-- Hidden inputs for formsubmit -->
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_subject" value="New Engagement RSVP!">
-            <input type="hidden" name="_url" value="https://ks.obsyd.agency">
+          <form id="rsvp-form" action="https://api.web3forms.com/submit" method="POST">
+            <!-- Hidden inputs for Web3Forms -->
+            <input type="hidden" name="access_key" value="775c77ce-757c-416f-b5c5-d32e043afaa7">
+            <input type="hidden" name="subject" value="New Engagement RSVP!">
+            <input type="hidden" name="from_name" value="ks.obsyd.agency RSVP">
+            <input type="hidden" name="redirect" value="false">
 
             <input type="text" name="name" placeholder="Guest Name" required class="glossy-input">
             <input type="number" name="guests" placeholder="Number of Guests" required class="glossy-input">
